@@ -1,0 +1,27 @@
+// ==UserScript==
+// @name         To Checkout
+// @namespace    http://tampermonkey.net/
+// @version      2025-02-21
+// @description  try to take over the world!
+// @author       You
+// @match        https://us-store.msi.com/cart
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=msi.com
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+         function playNotificationSound() {
+        let audio = new Audio('https://www.myinstants.com/media/sounds/tindeck_1.mp3');
+        audio.play().catch(e => console.log("checkout time!", e));
+    }
+if (document.location.href.indexOf('cart') != -1){playNotificationSound();
+
+setTimeout(
+function(){
+window.location.href = "https://us-store.msi.com/checkout"
+},1000)
+                                                 }
+   
+})();
