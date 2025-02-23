@@ -1,0 +1,56 @@
+// ==UserScript==
+// @name         Add to Cart
+// @namespace    http://tampermonkey.net/
+// @version      2025-02-21
+// @description  try to take over the world!
+// @author       You
+// @match        https://us-store.msi.com/Graphics-Cards/NVIDIA-GPU/GeForce-RTX-50-Series*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=msi.com
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+   setTimeout( function(){console.log(11111);
+let prod_names = [] ;
+let skus = []
+document.querySelectorAll('.product-thumb').forEach(
+    (text) =>{var t = text.querySelectorAll('.crop-text-2')[0].textContent;
+
+                    prod_names.push(t);
+                    var s = text.querySelectorAll('.compare')[0].getAttribute('onclick');
+              skus.push(s.match(/(\d+)/gi)[0]);
+                text.setAttribute('id','test5090')
+
+
+             });
+
+
+document.querySelectorAll('.add-cart-button-4').forEach((e) =>{ e.textContent = "ADD TO CART"});
+document.querySelectorAll('.add-cart-button-4').forEach((e) => {e.removeAttribute("onclick")});
+//adds to cart
+        document.querySelectorAll('.add-cart-button-4').forEach((e,index) => {e.addEventListener('click',function(){
+            fetch("https://us-store.msi.com/index.php?route=checkout/cart/add", {
+  "headers": {
+    "accept": "application/json, text/javascript, */*; q=0.01",
+    "accept-language": "en-US,en;q=0.9,fr;q=0.8",
+    "cache-control": "no-cache",
+    "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "sec-ch-ua": "Not A(Brand;v=8, Chromium;v=132, Google Chrome;v=132",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "Windows",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "x-requested-with": "XMLHttpRequest"
+  },
+  "referrer": "https://us-store.msi.com/Graphics-Cards/NVIDIA-GPU/GeForce-GTX-10-SERIES",
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": "product_id="+skus[index]+"&quantity=1",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "include"
+})})})},500)
+})();
